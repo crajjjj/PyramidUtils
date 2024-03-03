@@ -338,6 +338,7 @@ namespace PyramidUtils::Expression {
 			return false;
 		}
 		std::thread t([=]() {
+			std::srand(static_cast<unsigned int>(std::time(nullptr)));
 			SmoothSetExpression(a_actor, a_mood, a_strength, a_currentStrength, a_modifier, a_speed, a_delay);
 			RE::BSScript::Internal::VirtualMachine::GetSingleton()->ReturnLatentResult<bool>(a_stackId, true);
 		});
@@ -356,6 +357,7 @@ namespace PyramidUtils::Expression {
 			return false;
 		}
 		std::thread t([=]() {
+			std::srand(static_cast<unsigned int>(std::time(nullptr)));
 			switch (a_mode) {
 			case Mode::Reset:
 				{
@@ -451,9 +453,8 @@ namespace PyramidUtils::Expression {
 			return false;
 		}
 
-		std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
 		std::thread t([=]() {
+			std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
 			int i = 0;
 			int p = 0;
