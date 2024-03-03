@@ -138,10 +138,10 @@ namespace PyramidUtils::Expression {
 	inline bool ResetMFG(RE::Actor* a_actor)
 	{
 		if (auto animData = GetAnimData(a_actor)) {
-			animData->lock.Lock();
+			//animData->lock.Lock();
 			animData->ClearExpressionOverride();
 			animData->Reset(0.0f, true, true, true, false);
-			animData->lock.Unlock();
+			//animData->lock.Unlock();
 		}
 		
 		return true;
@@ -168,9 +168,9 @@ namespace PyramidUtils::Expression {
 
 				std::this_thread::sleep_for(std::chrono::milliseconds{ getDelayPlusRandom(a_delay) });
 				if (auto curr = GetAnimData(a_actor)) {
-					curr->lock.Lock();
+					//curr->lock.Lock();
 					curr->phenomeKeyFrame.SetValue(a_id, std::clamp(t1, 0, 100) / 100.0f);
-					curr->lock.Unlock();
+					//curr->lock.Unlock();
 				} else
 					break;
 			}
@@ -233,27 +233,22 @@ namespace PyramidUtils::Expression {
 				t3 = randomInt(0, 1);
 				std::this_thread::sleep_for(std::chrono::milliseconds{ getShortenedDelay(a_delay) });
 				if (auto curr = GetAnimData(a_actor)) {
-					curr->lock.Lock();
+					//curr->lock.Lock();
 					curr->modifierKeyFrame.SetValue(mod1 * t3 + mod2 * (1 - t3), std::clamp(t1, 0, 100) / 100.0f);
 					curr->modifierKeyFrame.SetValue(mod2 * t3 + mod1 * (1 - t3), std::clamp(t1, 0, 100) / 100.0f);
-					curr->lock.Unlock();
+					//curr->lock.Unlock();
 				} else
 					break;
-				
-				
 			}
 			else {
 				std::this_thread::sleep_for(std::chrono::milliseconds{ getDelayPlusRandom(a_delay) });
 				if (auto curr = GetAnimData(a_actor)) {
-					curr->lock.Lock();
+					//curr->lock.Lock();
 					curr->modifierKeyFrame.SetValue(mod1, std::clamp(t1, 0, 100) / 100.0f);
-					curr->lock.Unlock();
+					//curr->lock.Unlock();
 				} else
 					break;
-				
 			}
-			
-			
 		}
 	}
 
@@ -324,9 +319,9 @@ namespace PyramidUtils::Expression {
 
 				std::this_thread::sleep_for(std::chrono::milliseconds{ getDelayPlusRandom(a_delay) });
 				if (auto animData = GetAnimData(a_actor)) {
-					animData->lock.Lock();
+					//animData->lock.Lock();
 					animData->SetExpressionOverride(a_mood, static_cast<float>(exp_value));
-					animData->lock.Unlock();
+					//animData->lock.Unlock();
 				} else
 					break;
 			}
@@ -455,6 +450,8 @@ namespace PyramidUtils::Expression {
 			logger::error("No animdata found");
 			return false;
 		}
+
+		std::srand(static_cast<unsigned int>(std::time(nullptr)));
 
 		std::thread t([=]() {
 
